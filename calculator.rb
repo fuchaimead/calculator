@@ -17,7 +17,7 @@ end
   def number1
     puts "What is the first number?"
     first_num = gets.strip
-    if first_num.match(/^([0-9][.])?[0-9]$/)
+    if first_num.match(/^\d+(\.\d+)?$/)
       @number1 = first_num.to_f
     else 
       puts "Not valid."
@@ -29,7 +29,7 @@ end
   def number2
     puts "What is the second number?"
     sec_num = gets.strip
-      if sec_num.match(/^([0-9][.])?[0-9]$/)
+      if sec_num.match(/^\d+(\.\d+)?$/)
         @number2 = sec_num.to_f
       else 
         puts "Not valid."
