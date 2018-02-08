@@ -1,41 +1,64 @@
 @history =[]
 
- def calculator
-    puts "-------------------"
+def calculator
+  number1
+  operator
+  number2
+  solution
+end
+
+  def solution
+    puts "Calculating..."
+    solution = @number1.send(@symbol, @number2) 
+    puts "#{@number1} #{@symbol} #{@number2} = #{solution}" 
+    @history << "#{@number1} #{@symbol} #{@number2} = #{solution}"
+  end
+
+  def number1
     puts "What is the first number?"
     first_num = gets.strip
-      if first_num.match(/\d+/) || first_num.match(/\d+.\d+/)
-        number = first_num.to_f
-        puts "What is the operator?"
-        op = gets.strip
-          if op === "+" || op === "-" || op === "*" || op === "/"
-          symbol = op.to_sym
-          puts "What is the second number?"
-          sec_num = gets.strip.to_f
-          puts "Calculating..."
-          solution = number.send(op, sec_num) 
-          puts "#{number} #{symbol} #{sec_num} = #{solution}" 
-          @history << "#{number} #{symbol} #{sec_num} = #{solution}"
-           else
-            puts "Not valid."
-            calculator
-        end
-      else 
+    if first_num.match(/^([0-9][.])?[0-9]$/)
+      @number1 = first_num.to_f
+    else 
       puts "Not valid."
-      calculator 
+      number1
     end
   end
 
+
+  def number2
+    puts "What is the second number?"
+    sec_num = gets.strip
+      if sec_num.match(/^([0-9][.])?[0-9]$/)
+        @number2 = sec_num.to_f
+      else 
+        puts "Not valid."
+        number2
+      end
+  end
+
+  def operator
+    puts "What is the operator?"
+    op = gets.strip
+      if op === "+" || op === "-" || op === "*" || op === "/" || op === "**"
+      @symbol = op.to_sym
+      else 
+        puts "Not valid."
+        operator
+      end
+  end
+
+
   def menu
     puts "Welcome to the Ruby Calculator."
-    puts "1) Do a problem."
+    puts "1) Do another problem."
     puts "2) View History."
     puts "3) Exit program."
   end
 
   while true
     menu
-    option = gets.strip.to_i
+    option = gets.chomp.to_i
     case option 
       when 1 
         calculator
@@ -43,8 +66,9 @@
         puts @history
       when 3
         exit
-      when option == "exit"
-        exit
+      else 
+        puts "Not an option."
+        menu
     end
   end
 
